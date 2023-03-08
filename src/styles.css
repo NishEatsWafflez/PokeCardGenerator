@@ -1,0 +1,144 @@
+@font-face {
+    font-family: Gill-Sans-Bold;
+    src: url("Gill-Sans-Font-Family/GillSans Condensed Bold.otf") format("opentype");
+}
+
+@font-face {
+    font-family: Gill-Sans-Med;
+    src: url("Gill-Sans-Font-Family/Gill Sans Medium.otf") format("opentype");
+}
+@font-face {
+    font-family: Gill-Sans;
+    src: url("Gill-Sans-Font-Family/Gill Sans.otf") format("opentype");
+}
+body{
+	/*background-color: blue;*/
+}
+.welcome{
+	text-align: center;
+	margin-top: 2%;
+	font-family: "Gill-Sans";
+	border: 2px solid black;
+	border-radius: 10px;
+	width: 40%;
+	margin: 2% 29%;
+	margin-bottom: auto;
+	padding: 1%;
+}
+.card{
+	margin: 0;
+	margin-top: 9%;
+	border: black 2px solid;
+	width: 325px;
+	height: 450px;
+	background-color: #ffeeff;
+	border-radius: 10px;
+}
+.mainDiv{
+	display: flex;
+	/*flex-direction: column; */
+	justify-content: center;
+	margin: 0 auto;
+}
+.moveName{
+	font-size: 14pt;
+	font-family: "Gill-Sans-Bold";
+}
+.pokeImage{
+	display: block;
+	justify-self: center;
+	height: 150px;
+	margin: auto;
+	margin-top: 15px;
+}
+.submitForm{
+	margin: auto;
+	display: flex;
+	justify-content: space-evenly;
+	flex-direction: row;
+	width: 325px;
+}
+/*.inputForm{
+	display: flex;
+	justify-content: space-around;
+	flex-direction: row;
+}*/
+.pokeBox{
+	border-top: black 2px solid;
+	border-bottom: black 2px solid;
+	border: black 2px solid;
+	width: 90%;
+	height: 180px;
+	margin: auto 5%;
+	margin-top: 0px;
+	/*background-color: white; */
+	z-index: 10;
+}
+.header{
+	display: flex;
+	justify-content: space-between;
+	margin-top: 2.5%;
+	margin-bottom: 0;
+}
+.pokeName{
+	margin-left: 16.25px;
+	font-size: 18pt;
+	font-family: "Gill-Sans-Bold";
+}
+.pokeTypes{
+	margin-right: 6.25px;
+}
+.pokeType{
+	margin-right: 4px;
+	margin-bottom: 10px;
+	font-size: 2pt;
+	height: 25px;
+	font-family: "Gill-Sans-Med";
+}
+.pokeMove{
+	font-size: 12pt;
+	margin:0 16.25px;
+	/*height: 30px; */
+	font-family: "Gill-Sans";
+	/*font-family: "Arial"; */
+}
+.pokeMoves{
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	height: 200px;
+	margin-top: 5px;
+}
+/*body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
+  color: #455A64;
+  background-color: #7E57C2;
+  font-family: var(--fontFamily);
+  font-size: var(--fontSizeMd);
+  line-height: var(--lineHeightMd);
+}*/
+input[type=text], select {
+  width: 260px;
+  padding: 12px 15px;
+  margin: 10px auto;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-sizing: border-box;
+}
+
+.button{
+	margin: 0px auto;
+}
+.button {
+  margin-right: 0;
+  height: 50px;
+  border-radius: 50%;
+  width: 50px !important;
+  align-self: center;
+}
