@@ -22,11 +22,33 @@ const colorList = {
 	steel: ["#8F968F", "#717571", "#a8ada8"],
 	fairy: ["#DC4785", "#9c305d", "#bf4176"]
 }
+const Move = (props) => {
+	return(
+		<div class = "pokeMove"> 
+			<div class = "moveName "> {props.name}</div>
+				{props.Desc}
+		</div>
+
+	)
+}
+const Movelist = (props) =>{
+	return(
+			<div class = "pokeMoves">
+				<Move name = {`Ability: ${props.ability}`} Desc = {props.abilityDesc} />
+				<Move name = {props.move1} Desc = {props.move1Desc} />
+				{props.singleMove ?
+					<div class = "pokeMove"> </div>:
+					<Move name = {props.move2} Desc = {props.move2Desc} />
+				}	
+			</div>
+
+	)
+}
 const Pokemondisplay = (props) =>{
 	return(
 		<div class = "card" style={{backgroundColor: props.color[0]}}>
 			<div class = "header">
-				<div class = "pokeName"> {props.name.charAt(0).toUpperCase() + props.name.slice(1)} </div>
+				<div class = "pokeName"> {toTitleCase(props.name)} </div>
 				{props.singleType ?
 					<div class = "pokeTypes">
 					<img class = "pokeType" src={require(`./${props.type1.charAt(0).toUpperCase()+ props.type1.slice(1)}type.ico`)} />
@@ -42,42 +64,27 @@ const Pokemondisplay = (props) =>{
 			<div class = "pokeBox" style={{backgroundImage: `linear-gradient(to left, ${props.color[1]}, ${props.color[2]})`}}>
 				<img class = "pokeImage" src = {props.image} />
 			</div>
-			<div class = "pokeMoves">
-				<div class = "pokeMove"> 
-					<div class = "moveName ability"> Ability: {props.ability} </div>
-					{props.abilityDesc}
-				</div>
-			<div class = "pokeMove"> 
-				<div class = "moveName"> {props.move1} </div>
-				{props.move1Desc} </div>
-				{props.singleMove ?
-					<div class = "pokeMove"> </div>:
-					<div class = "pokeMove"> 
-						<div class = "moveName"> {props.move2} </div>
-						{props.move2Desc} 
-					</div>
-				}	
-			</div>
+			<Movelist ability = {props.ability} move1 = {props.move1} move2 = {props.move2} abilityDesc ={props.abilityDesc} move1Desc = {props.move1Desc} move2Desc = {props.move2Desc} singleMove = {props.singleMove}/>
 		</div>
 	)
 }
 const InputForm = () => {
-	const [title, updateTitle] = useState('');
-	const [image, updateImage] = useState('');
-	const [name, updateName] = useState('');
-	const [ability, updateAbility] = useState(null);
-	const [abilityDesc, updateAbilityDesc] = useState(null);
-	const [move1, updateMove] = useState('');
-	const [move2, updateMove2] = useState('');
-	const [move1Desc, updateMove1Desc] = useState('');
-	const [move2Desc, updateMove2Desc] = useState('');
-	const [type, updateType] = useState('');
-	const [type2, updateType2] = useState('');
-	const [singleType, updateSingularType] = useState(true);
-	const [displayCard, updateDisplay] = useState(false);
-	const [singleMove, updateSingle] = useState(false);
-	const [cardColor, changeColor] = useState("normal");
-	const [error, setError] = useState(null);
+	const [title, updateTitle] = useState(''); //allows user input to be visible in text box
+	const [image, updateImage] = useState(''); //url to pokemon sprite
+	const [name, updateName] = useState(''); // Pokemon name
+	const [ability, updateAbility] = useState(null); // Pokemon ability
+	const [abilityDesc, updateAbilityDesc] = useState(null); //Pokemon ability description
+	const [move1, updateMove] = useState(''); //Pokemon move 1 name
+	const [move2, updateMove2] = useState(''); // Pokemon move 2 name
+	const [move1Desc, updateMove1Desc] = useState(''); // Pokemon move 1 description
+	const [move2Desc, updateMove2Desc] = useState(''); // move 2 description
+	const [type, updateType] = useState(''); //Pokemon type
+	const [type2, updateType2] = useState(''); // Pokemon second type
+	const [singleType, updateSingularType] = useState(true); //checks if pokemon has 1 type or 2
+	const [displayCard, updateDisplay] = useState(false); // checks if pokemon card is being displayed
+	const [singleMove, updateSingle] = useState(false); //checks if pokemon has more than 1 move (ex: ditto)
+	const [cardColor, changeColor] = useState("normal"); //Checks card color (based on type 1)
+	const [error, setError] = useState(null); //checks if any errors exist
 	const handleError = response => {
 		if (!response.ok) { 
 			throw Error(response.statusText);
@@ -89,7 +96,7 @@ const InputForm = () => {
 		e.preventDefault();
 		const data = {title};
 		console.log(data);
-		fetch(`https://pokeapi.co/api/v2/pokemon/${title.toLowerCase()}`)
+		fetch(`https://pokeapi.co/api/v2/pokemon/${hyphenate(title)}`)
 			.then(response => {
 				if (!response.ok){
 					throw Error('Sorry. Something went wrong. \n Please check your spelling or try a different Pokemon');
@@ -241,12 +248,17 @@ const InputForm = () => {
 }
 
 function toTitleCase(str) {
-  return str.replace(
+  str = str.replace(/-/g, ' ');
+  return (str.replace(
     /\w\S*/g,
     function(txt) {
       return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
     }
-  );
+  ));
+}
+function hyphenate(str){
+	str = str.split('.').join("");
+	return (str.replace(/\s+/g, "-").toLowerCase());
 }
 const root = ReactDOM.createRoot(document.getElementById('root'));
 const element = <InputForm/>;
